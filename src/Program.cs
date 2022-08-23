@@ -9,7 +9,8 @@ using System.Text.Json;
 //Execution.RunSecond();
 //Execution.RunThird();
 //Execution.RunFourth();
-Execution.RunFifth();
+//Execution.RunFifth();
+Execution.RunSixth();
 
 public static class Execution
 {
@@ -106,6 +107,21 @@ public static class Execution
         }
 
         ShowMessages(_results.Merge());
+    }
+    
+    public static void RunSixth()
+    {
+        var itens = GenerateProducts();
+        var mensagensErro = new List<string>();
+
+        foreach (var item in itens)
+        {
+            var validationResult = _validator.Validate(item);
+
+            mensagensErro.AddRange(validationResult.Errors.Select(vf => vf.ErrorMessage));
+        }
+
+       ShowMessages(Result.Fail(mensagensErro));
     }
 
     private static IList<Produto> GenerateProducts()
